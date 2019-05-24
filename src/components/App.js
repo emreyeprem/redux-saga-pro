@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
+import {connect} from 'react-redux';
+import {getUsersRequest} from '../actions/users';
 
 // function* testing(){
 //   while (true){
@@ -10,12 +12,16 @@ import './App.css';
 // }
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.props.getUsersRequest();
+  }
   render() {
     // const iterator = testing();
     // console.log(iterator.next());
     // console.log(iterator.next());
     // console.log(iterator.next());
-    // console.log(iterator.next());
+
   return (
      <div>
        Test
@@ -24,4 +30,6 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, {
+  getUsersRequest
+})(App);
