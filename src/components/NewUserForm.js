@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Form} from 'reactstrap';
 import {Form, FormGroup, Label, Input, Button} from 'reactstrap';
 
 class NewUserForm extends Component {
@@ -23,10 +22,15 @@ class NewUserForm extends Component {
 
      handleSubmit = e => {
          e.preventDefault();
+         this.props.onSubmit({
+             firstName: this.state.firstName,
+             lastName: this.state.lastName
+         })
      };
 
      render(){
-         <Form onSubmit={this.handleSubmit}>
+         return (
+             <Form onSubmit={this.handleSubmit}>
              <FormGroup>
                  <Label>
                      First name
@@ -40,11 +44,12 @@ class NewUserForm extends Component {
                  <Input required placeholder='Last name' onChange={this.handleLastNameChange} value={this.state.lastName} />
              </FormGroup>
              <FormGroup>
-                 <Button >
+                 <Button block outline type="submit" color="primary">
                      Create
                  </Button>
              </FormGroup>
          </Form>
+         )
      }
 }
 
