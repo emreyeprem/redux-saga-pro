@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
 import {connect} from 'react-redux';
-import {getUsersRequest, createUserRequest, deleteUserRequest} from '../actions/users';
+import {getUsersRequest, createUserRequest, deleteUserRequest, usersError} from '../actions/users';
 import UsersList from './UsersList';
 import NewUserForm from './NewUserForm';
+import {Alert} from 'reactstrap';
 
 // function* testing(){
 //   while (true){
@@ -30,6 +31,12 @@ class App extends Component {
      this.props.deleteUserRequest(userId);
   }
 
+  handleCloseAlert = () =>{
+     this.props.usersError({
+         error: ''
+     });
+  };
+
   render() {
     const users = this.props.users;
     // const iterator = testing();
@@ -39,6 +46,9 @@ class App extends Component {
 
   return (
      <div style={{margin: '0 auto', padding: '20px', maxWidth: '600px'}}>
+       <Alert color="danger" isOpen={!!this.props.users.error} toggle={this.handleCloseAlert}>
+           {this.props.users.error}
+       </Alert>
        <NewUserForm onSubmit={this.handleSubmit} />
        <UsersList onDeleteUser={this.handleDeleteUserClick} users={users.items} />
      </div>
@@ -49,5 +59,6 @@ class App extends Component {
 export default connect(({users}) => ({users}), {
   getUsersRequest,
   createUserRequest,
-  deleteUserRequest
+  deleteUserRequest,
+  usersError
 })(App);

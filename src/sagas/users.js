@@ -9,7 +9,9 @@ function* getUsers() {
              items: result.data.data
          }));
     }catch(e){
-
+        yield put(actions.usersError({
+            error: 'An error occurred when trying to get the user'
+        }));
     }
 }
 
@@ -22,7 +24,9 @@ function* createUser(action){
         yield call(api.createUser, {firstName: action.payload.firstName, lastName: action.payload.lastName});
         yield call(getUsers);
     }catch(e){
-
+        yield put(actions.usersError({
+            error: 'An error occurred when trying to create the user'
+        }));
     }
 }
 
@@ -35,7 +39,9 @@ function* deleteUser({userId}){
         yield call(api.deleteUser, userId);
         yield call(getUsers);
     }catch(e){
-
+        yield put(actions.usersError({
+            error: 'An error occurred when trying to delete the user'
+        }));
     }
 }
 
