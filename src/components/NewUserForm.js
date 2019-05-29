@@ -25,6 +25,10 @@ class NewUserForm extends Component {
          this.props.onSubmit({
              firstName: this.state.firstName,
              lastName: this.state.lastName
+         });
+         this.setState({
+             firstName : '',
+             lastName: ''
          })
      };
 
